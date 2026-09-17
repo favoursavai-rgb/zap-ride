@@ -64,6 +64,25 @@ function show(id,btn){document.querySelectorAll('.panel').forEach(x=>x.classList
   const superbaseurl=https://muyvzwlqeftbbpcbqrsf.supabase.co/rest/v1/
   const superbasekey=sb_publishable_9_5FMIzzImh3phYqG1-7Lg_0Q7J6s1m
   const db = window.supabase.createclient(supabaseurl,supabasekey);
+async function requestRide(){
+  const inputs = document.querySelectorAll('#rider input');
+  const pickup = inputs[0].value;
+  const destination = inputs[1].value;
+
+  const { error } = await db.from('trips').insert([{
+    pickup: pickup,
+    destination: destination,
+    fare: 420,
+    payment_method: 'Cash',
+    status: 'requested'
+  }]);
+
+  if (error) {
+    alert('Ride request failed: ' + error.message);
+  } else {
+    alert('Ride request saved successfully!');
+  }
+}
 </script>
 </body>
 </html>
