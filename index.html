@@ -58,25 +58,28 @@ table{width:100%;border-collapse:collapse;background:white}td,th{padding:12px;bo
 <div class="card" style="margin-top:16px"><h2>Safety controls</h2><p>Danger-zone alerts: <b>Enabled</b></p><p>Alternative-route suggestions: <b>Enabled</b></p><button class="danger" onclick="alert('Emergency monitoring control opened in prototype mode.')">Emergency monitoring</button></div>
 </div
 </section>
-</main>
-<script>
-function show(id,btn){document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
-  const SUPABASE_URL=https://muyvzwlqeftbbpcbqrsf.supabase.co/rest/v1/
-  const SUPABASE_KEY=sb_publishable_9_5FMIzzImh3phYqG1-7Lg_0Q7J6s1m
-  const DB=window.supabase.createclient(supabaseurl,supabasekey);
+const SUPABASE_URL ="https://muyvzwlqeftbbpcbqrsf.supabase.co";
+const SUPABASE_KEY ="sb_publishable_9_5FMIzzImh3phYqG1-7Lg_0Q7J6s1m"
+const DB = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  function show(id,btn){
+  
+  
+  
 async function requestRide(){
   const inputs = document.querySelectorAll('#rider input');
   const pickup = inputs[0].value;
   const destination = inputs[1].value;
-
-  const { error } = await DB.from('trips').insert([{
-    { pickup: pickup,
+const { error } = await DB.from("trips").insert([
+  {
+    pickup: pickup,
     destination: destination,
     fare: 420,
     payment_method: "Cash",
     status: "requested"
   }
 ]);
+  
+
   if (error) {
     alert('Ride request failed: ' + error.message);
   } else {
